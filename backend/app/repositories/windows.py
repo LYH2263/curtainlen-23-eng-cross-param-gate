@@ -14,3 +14,14 @@ def get_window(wid: int):
         return dict(r) if r else None
     finally:
         c.close()
+
+def update_window(wid: int, fields: dict):
+    cols = {k: v for k, v in fields.items() if k in ("name", "width", "height", "fullness", "note")}
+    if cols:
+        c = connect()
+        try:
+            c.execute("UPDATE windows SET " + ",".join(f"{k}=?" for k in cols) + " WHERE id=?", (*cols.values(), wid))
+            c.commit()
+        finally:
+            c.close()
+    return get_window(wid)

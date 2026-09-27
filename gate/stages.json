@@ -1,0 +1,29 @@
+{
+  "window_name": "客厅落地窗",
+  "fabric_name": "遮光1.4m",
+  "stages": [
+    {
+      "label": "baseline",
+      "comment": "干算种子窗×种子布，记下基准 meters 与 panels",
+      "expect": {"record_baseline": true}
+    },
+    {
+      "label": "fullness-2.5",
+      "comment": "经窗户更新把褶量改为 2.5，meters 必须严格大于基准",
+      "set_window": {"fullness": 2.5},
+      "expect": {"meters_gt_baseline": true}
+    },
+    {
+      "label": "width-2.8",
+      "comment": "经布料更新把门幅改为 2.8，panels 必须严格小于上一阶段且 meters 等于手算",
+      "set_fabric": {"fabric_width": 2.8},
+      "expect": {"panels_lt_previous": true, "meters_eq_hand_calc": true}
+    },
+    {
+      "label": "restore",
+      "comment": "褶量与门幅写回原值，meters 与 panels 必须回到基准",
+      "restore": true,
+      "expect": {"meters_eq_baseline": true, "panels_eq_baseline": true}
+    }
+  ]
+}
