@@ -14,3 +14,21 @@ def get_fabric(fid: int):
         return dict(r) if r else None
     finally:
         c.close()
+
+UPDATABLE = ("fabric_width", "hem_top", "hem_bottom", "note")
+
+def update_fabric(fid: int, fields: dict):
+    sets = {k: v for k, v in fields.items() if k in UPDATABLE and v is not None}
+    if sets:
+        c = connect()
+        try:
+            cur = c.execute(
+                "UPDATE fabrics SET " + ",".join(f"{k}=?" for k in sets) + " WHERE id=?",
+                (*sets.values(), fid),
+            )
+            c.commit()
+            if cur.rowcount == 0:
+                return None
+        finally:
+            c.close()
+    return get_fabric(fid)

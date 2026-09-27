@@ -20,3 +20,11 @@ docker compose up --build
 ## 技术栈
 
 Python 3.12 + FastAPI + SQLite；Vue 3 + Vite + Nginx。
+
+## 门禁
+
+```bash
+python3 gate/run_gate.py
+```
+
+褶量 × 门幅 交叉门禁：基准干算 → 褶量 2.5 → 门幅 2.8 → 写回原值，任一阶段失败进程码非零。详见 `gate/README.md`。

@@ -1,0 +1,25 @@
+{
+  "window_name": "客厅落地窗",
+  "fabric_name": "遮光1.4m",
+  "stages": [
+    {
+      "label": "baseline",
+      "expect": { "panels_eq": 5, "meters_eq": 14.25 }
+    },
+    {
+      "label": "fullness-2.5",
+      "mutate": { "window": { "fullness": 2.5 } },
+      "expect": { "meters_gt": "baseline" }
+    },
+    {
+      "label": "width-2.8",
+      "mutate": { "fabric": { "fabric_width": 2.8 } },
+      "expect": { "panels_lt": "fullness-2.5", "meters_eq_hand": true, "panels_eq": 3, "meters_eq": 8.55 }
+    },
+    {
+      "label": "restore",
+      "mutate": "restore_original",
+      "expect": { "panels_back_to": "baseline", "meters_back_to": "baseline" }
+    }
+  ]
+}
